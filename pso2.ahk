@@ -20,11 +20,9 @@ Subpalette := ["{Numpad1}","{Numpad2}","{Numpad3}","{Numpad4}","{Numpad5}","{Num
 */
 ^!F1::Suspend, Toggle
 
-^!F2::SetTimer, AutoEnter, % (AutoEnter := !AutoEnter) ? "on" : "off"
+^!F2::SetTimer, AutoEnter, % (AutoEnter := !AutoEnter) ? 500 : "off"
 
-^!F3::SetTimer, AcceptClientOrder, 200 (Accept := !Accept) ? "on" : "off"
-
-
+^!F3::SetTimer, AcceptClientOrder, % (AcceptClientOrder := !AcceptClientOrder) ? 500 : "off"
 
 
 ^!F4::GoSub, AutoFish
