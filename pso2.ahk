@@ -7,46 +7,49 @@ Subpalette := ["{Numpad1}","{Numpad2}","{Numpad3}","{Numpad4}","{Numpad5}","{Num
 
 ; Example rebind to change the subpalette keys to anything you'd like. 
 /*
-1::SendInput, % Subpalette[1]
-2::SendInput, % Subpalette[2]
-3::SendInput, % Subpalette[3]
-4::SendInput, % Subpalette[4]
-5::SendInput, % Subpalette[5]
-6::SendInput, % Subpalette[6]
-7::SendInput, % Subpalette[7]
-8::SendInput, % Subpalette[8]
-9::SendInput, % Subpalette[9]
-0::SendInput, % Subpalette[0]
+1::Send, % Subpalette[1]
+2::Send, % Subpalette[2]
+3::Send, % Subpalette[3]
+4::Send, % Subpalette[4]
+5::Send, % Subpalette[5]
+6::Send, % Subpalette[6]
+7::Send, % Subpalette[7]
+8::Send, % Subpalette[8]
+9::Send, % Subpalette[9]
+0::Send, % Subpalette[0]
 */
 ^!F1::Suspend, Toggle
 
-^!F2::SetTimer, AutoEnter, % (AutoEnter := !AutoEnter) ? 500 : "off"
+^!F2::SetTimer, AutoEnter, % (AutoEnter := !AutoEnter) ? 100 : "off"
 
-^!F3::SetTimer, AcceptClientOrder, % (AcceptClientOrder := !AcceptClientOrder) ? 500 : "off"
+^!F3::SetTimer, AcceptClientOrder, % (AcceptClientOrder := !AcceptClientOrder) ? 200 : "off"
 
 
 ^!F4::GoSub, AutoFish
 ^!F5::GoSub, AutoFillSupport
 
+^!F6::DepositItem(1)
+^!F7::StoreAllItems(1)
+
 ; Auto clicks enter. Duh.
 AutoEnter:
-    SendInput, {Enter}
+    Send, {Enter}
     Return
 
 ; Should accept every client orders in a list. Useful for Franca.
 AcceptClientOrder:
-    SendInput, {Enter} ; Accepts.
-    SendInput, {Down}  ; Go to the next one.
+    Send, {Enter} ; Accepts.
+    Send, {Down}  ; Go to the next one.
     Return
 
 AutoFish:
     Loop 10 {
-        SendInput, {E}      ; Open Fishing Menu
-        SendInput, {Enter}  ; Select first choice (starts red circle anim)
+        Send, {E}      ; Open Fishing Menu
+        Send, {Enter}  ; Select first choice (starts red circle anim)
         Sleep, 1000         ; Wait for red circle (timing is wrong here)
-        SendInput, {E}      ; Harvests fish
+        Send, {E}      ; Harvests fish
         Sleep, 1000         ; Wait for anim to finish
-        SendInput, {Enter}  ; Confirm
+        Send, {Enter}  ; Confirm
     }
     Return
 
@@ -70,14 +73,19 @@ AutoHarvest:
     }
     Return
 */
-/*
-Autostore(NumOfStorage)
-    SendInput, {Enter}
-    SendInput, {Down}	; Select Storage
-    SendInput, {Enter}	; Open ^
-    Loop NumOfStorage {
-        SendInput, {Down} 	; 1 for Default, 2 for Character, 3 for Premium, 4 for Material
+
+; Stores all items in a category.
+StoreAllItems(StorageID){
+    Loop 150 { ; Should be set to max inventory space.
+        DepositItem(%StorageID%)
     }
-    SendInput, {Enter}
+}
+
+; Meant to be used while in inventory
+DepositItem(StorageID){
+    Send, {Enter} ; Opens Item interact menu then opens deposit menu
+    Send, {Enter}
+    Send, {Down %StorageID%} ; 0 for Default, 1 for Character, 2 for Premium, 3 for Material
+    Send, {Enter}
     Return
-*/
+}
