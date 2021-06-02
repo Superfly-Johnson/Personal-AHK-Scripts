@@ -1,7 +1,7 @@
 #SingleInstance
 #IfWinActive ahk_exe pso2.exe
 
-SetKeyDelay, 100 ; Should be set to your latency with the server.
+SetKeyDelay, 50 ; Should be set to your latency with the server.
 
 Subpalette := ["{Numpad1}","{Numpad2}","{Numpad3}","{Numpad4}","{Numpad5}","{Numpad6}","{Numpad7}","{Numpad8}","{Numpad9}","{Numpad0}"]
 
@@ -26,7 +26,7 @@ Subpalette := ["{Numpad1}","{Numpad2}","{Numpad3}","{Numpad4}","{Numpad5}","{Num
 
 
 ^!F4::GoSub, AutoFish
-^!F5::GoSub, AutoFillSupport
+;^!F5::GoSub, AutoFillSupport
 
 ^!F6::SetTimer, DepositItem1, % (DepositItem1 := !DepositItem1) ? 50 : "off"
 
@@ -42,13 +42,13 @@ AcceptClientOrder:
     Return
 
 AutoFish:
-    Loop 10 {
+    Loop 3 {
         Send, {E}      ; Open Fishing Menu
         Send, {Enter}  ; Select first choice (starts red circle anim)
-        Sleep, 1000         ; Wait for red circle (timing is wrong here)
-        Send, {E}      ; Harvests fish
-        Sleep, 1000         ; Wait for anim to finish
+        Sleep, 3000         ; Wait for red circle (timing is wrong here)
+        Send, {E}      ; Harvests fish       ; Wait for anim to finish
         Send, {Enter}  ; Confirm
+        Sleep 1000
     }
     Return
 
