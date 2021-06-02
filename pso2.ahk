@@ -1,7 +1,7 @@
 #SingleInstance
 #IfWinActive ahk_exe pso2.exe
 
-SetKeyDelay, 50 ; Should be set to your latency with the server.
+SetKeyDelay, 100 ; Should be set to your latency with the server.
 
 Subpalette := ["{Numpad1}","{Numpad2}","{Numpad3}","{Numpad4}","{Numpad5}","{Numpad6}","{Numpad7}","{Numpad8}","{Numpad9}","{Numpad0}"]
 
@@ -20,12 +20,12 @@ Subpalette := ["{Numpad1}","{Numpad2}","{Numpad3}","{Numpad4}","{Numpad5}","{Num
 */
 ^!F1::Suspend, Toggle
 
-^!Enter::SetTimer, AutoEnter, % (AutoEnter := !AutoEnter) ? 100 : "off"
+^!Enter::SetTimer, AutoEnter, % (AutoEnter := !AutoEnter) ? 25 : "off"
 
 ^!F3::SetTimer, AcceptClientOrder, % (AcceptClientOrder := !AcceptClientOrder) ? 50 : "off"
 
 
-^!F4::GoSub, AutoFish
+^!F::GoSub, AutoFish
 ;^!F5::GoSub, AutoFillSupport
 
 ^!F6::SetTimer, DepositItem1, % (DepositItem1 := !DepositItem1) ? 50 : "off"
@@ -35,7 +35,7 @@ AutoEnter:
     Send, {Enter}
     Return
 
-; Should accept every client orders in a list. Useful for Franca.
+; Should accept every client orders in a list. Useful for Franca. Bugs out for some reason...
 AcceptClientOrder:
     Send, {Enter} ; Accepts.
     Send, {Down}  ; Go to the next one.
