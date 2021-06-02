@@ -18,9 +18,10 @@ Subpalette := ["{Numpad1}","{Numpad2}","{Numpad3}","{Numpad4}","{Numpad5}","{Num
 9::Send, % Subpalette[9]
 0::Send, % Subpalette[0]
 */
-^!F1::Suspend, Toggle
 
-^!F2::SetTimer, AutoEnter, % (AutoEnter := !AutoEnter) ? 100 : "off"
+LControl & Enter::SetTimer, AutoEnter, % (AutoEnter := !AutoEnter) ? 100 : "off"
+
+^!F1::Suspend, Toggle
 
 ^!F3::SetTimer, AcceptClientOrder, % (AcceptClientOrder := !AcceptClientOrder) ? 200 : "off"
 
