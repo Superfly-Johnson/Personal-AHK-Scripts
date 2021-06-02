@@ -1,7 +1,7 @@
 #SingleInstance
 #IfWinActive ahk_exe pso2.exe
 
-SetKeyDelay, 200 ; Should be set to your latency with the server.
+SetKeyDelay, 100 ; Should be set to your latency with the server.
 
 Subpalette := ["{Numpad1}","{Numpad2}","{Numpad3}","{Numpad4}","{Numpad5}","{Numpad6}","{Numpad7}","{Numpad8}","{Numpad9}","{Numpad0}"]
 
@@ -18,19 +18,17 @@ Subpalette := ["{Numpad1}","{Numpad2}","{Numpad3}","{Numpad4}","{Numpad5}","{Num
 9::Send, % Subpalette[9]
 0::Send, % Subpalette[0]
 */
-
-LControl & Enter::SetTimer, AutoEnter, % (AutoEnter := !AutoEnter) ? 100 : "off"
-
-LControl & LShift & Enter::SetTimer, AcceptClientOrder, % (AcceptClientOrder := !AcceptClientOrder) ? 200 : "off"
-
 ^!F1::Suspend, Toggle
+
+^!Enter::SetTimer, AutoEnter, % (AutoEnter := !AutoEnter) ? 100 : "off"
+
+^!F3::SetTimer, AcceptClientOrder, % (AcceptClientOrder := !AcceptClientOrder) ? 50 : "off"
 
 
 ^!F4::GoSub, AutoFish
 ^!F5::GoSub, AutoFillSupport
 
-^!F6::DepositItem(1)
-^!F7::StoreAllItems(1)
+^!F6::SetTimer, DepositItem1, % (DepositItem1 := !DepositItem1) ? 50 : "off"
 
 ; Auto clicks enter. Duh.
 AutoEnter:
@@ -75,12 +73,9 @@ AutoHarvest:
     Return
 */
 
-; Stores all items in a category.
-StoreAllItems(StorageID){
-    Loop 150 { ; Should be set to max inventory space.
-        DepositItem(%StorageID%)
-    }
-}
+DepositItem1:
+    DepositItem(1)
+    Return
 
 ; Meant to be used while in inventory
 DepositItem(StorageID){
